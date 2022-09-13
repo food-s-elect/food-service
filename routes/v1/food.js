@@ -5,7 +5,7 @@ var router = express.Router();
 const { createToken,validateToken } = require("./middlewares/token");
 const { creationValidator } = require("./middlewares/validators");
 const {  uploadMultiple } = require("./middlewares/upload");
-const { createFood } = require("./middlewares/food");
+const { createFood, upvote } = require("./middlewares/food");
 
 
 
@@ -14,7 +14,7 @@ router.post("/create",creationValidator,createFood, async (req, res) => {
     res.status(200).json({response_code:200,message:"Successfully created food",response:null})
 });
   
-router.post("/vote",validateToken,(req,res)=>{
+router.post("/vote",validateToken,upvote,(req,res)=>{
 
 })
 

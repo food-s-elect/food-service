@@ -39,8 +39,8 @@ function createFood(req,res,next){
 }
 
 function upvote(req,res,next){
-    food.findOne({"_id":req.body.id}).then((food)=>{
-      if(res==null){
+    food.findOne({"_id":req.body.id}).then((foo)=>{
+      if(foo==null){
         return res.status(200).json({
           "response_code":404,
           "message":"No food found",
@@ -48,13 +48,20 @@ function upvote(req,res,next){
         });
       }
     else{
-        user.findOne({"_id":req.user_id}).then((use)=>{
-          req.user.vote
+        user.findOne({"_id":req.user_id}).then((user_found)=>{
+          
+            user_found.voted = foo._id
+            food.updateOne(
+              { _id: foo._id }, 
+              { $addToSet: { votes:  req.user_id} },
+            )
         })
+
     }
   })
 }
 
 module.exports = {
-    createFood
+    createFood,
+    upvote
 }
