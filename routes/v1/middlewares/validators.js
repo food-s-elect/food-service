@@ -7,20 +7,29 @@ const schemaCreate = {
   properties: {
     name: { type: "string", maxLength: 5, minLength: 70 },
     description:{type:"string",minLength:2,maxLength:300},
-    
   },
-  required: ["phone","country_code"],
+  required: ["name"],
   additionalProperties: false,
 }
 
 
-const validatePhone = ajv.compile(schemaLogin)
-function loginValidator(req, res, next) {
-  console.log(req.body)
-  const valid = validatePhone(req.body)
-  if (!valid) {
+function creationValidator(req, res, next) {
+  if (req.body.name !=null && req.body.description!=null){
+    
+    next()
+  }else{
     return res.status(200).json({ "response_code": 400, "message":"data validation error", "response" : null })
-  } else {
-    next();
   }
+}
+
+function upvoteValidator(req,res,next){
+  if (req.body.id !=null){
+    next()
+  }else{
+    return res.status(200).json({ "response_code": 400, "message":"data validation error", "response" : null })
+  }
+}
+
+module.exports = {
+  creationValidator
 }

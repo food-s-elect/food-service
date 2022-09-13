@@ -13,6 +13,11 @@ app.use(cors({
   origin: '*'
 }))
 
+var multer = require('multer');
+var upload = multer();
+
+app.use(upload.array()); 
+
 app.use(express.static('public')); 
 app.use('/assets/', express.static('assets'));
 

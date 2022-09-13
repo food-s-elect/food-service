@@ -3,11 +3,20 @@ const redis = require("./../../services/redis");
 const express = require("express");
 var router = express.Router();
 const { createToken,validateToken } = require("./middlewares/token");
+const { creationValidator } = require("./middlewares/validators");
+const {  uploadMultiple } = require("./middlewares/upload");
+const { createFood } = require("./middlewares/food");
 
-router.post("/create", validateToken, async (req, res) => {
-    res.status(200).json({response_code:200,message:"Otp sent to your phone",response:null})
+
+
+router.post("/create",creationValidator,createFood, async (req, res) => {
+    console.log(req.body)
+    res.status(200).json({response_code:200,message:"Successfully created food",response:null})
 });
   
+router.post("/vote",validateToken,(req,res)=>{
+
+})
 
 
 

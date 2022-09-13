@@ -5,7 +5,7 @@ const food = new mongoose.Schema({
   name: {
     type: String,
   },
-  decription: {
+  description: {
     type: String,
   },
   votes: {
